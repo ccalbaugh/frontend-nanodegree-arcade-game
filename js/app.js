@@ -1,5 +1,5 @@
-// Enemies our player must avoid
-var Enemy = function(x, y, speed) {
+// THE ENEMY CLASS
+var Enemy = function(x, y, speed, width, height) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -9,6 +9,8 @@ var Enemy = function(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
+    this.width = width;
+    this.height = height;
 };
 
 // Update the enemy's position, required method for game
@@ -25,17 +27,20 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-var Player = function(x, y, speed) {
+// THE PLAYER CLASS
+var Player = function(x, y, speed, width, height) {
     this.x = x;
     this.y = y;
     this.player = 'images/char-boy.png';
+    this.width = width;
+    this.height = height;
 };
 
 Player.prototype.update = function(dt) {
+    console.log(this.x, this.y);
     player.speed *= dt;
+
+ // Dealing with the bounds of the board
     if (player.x < 0) {
         player.x = 0;
     } else if (player.x > 404) {
@@ -44,9 +49,9 @@ Player.prototype.update = function(dt) {
 
     if (player.y > 403) {
         player.y = 403;
-    } else if (player.y < 0) {
+    } else if (player.y < 0) { //            TODO: MAKE THE PLAYER WIN
         player.y = -12;
-    //  AND YOU WIN THE GAME!!
+        window.location.reload(true);
     }
 };
 
@@ -66,33 +71,29 @@ Player.prototype.handleInput = function(e) {
     } else if (this.x < -12 || this.y < 0) {
         return;
     }
+
     player.update();
 };
 
 // ENEMY Y COORDINATES = ROW 1: 62, ROW 2: 145, ROW 3: 228
 var allEnemies = [];
-
+var enemy = new Enemy();
 window.setInterval(function() {
-        for (var i = 0; i < 3; i++) {
-            var enemy = new Enemy();
-            var randomNum = Math.random() * 100;
-            if (randomNum <= 33) {
-                enemy[i] = new Enemy(-100, 62, ((Math.random() + 0.5) *  300));
-            } else if (randomNum <= 66 && randomNum > 33) {
-                enemy[i] = new Enemy(-100, 145, ((Math.random() + 0.5) *  300));
-            } else if (randomNum > 66) {
-                enemy[i] = new Enemy(-100, 228, ((Math.random() + 0.5) *  300));
-            }
-            allEnemies.push(enemy[i]);
-        }
-        return allEnemies;
-    }, 2500);
-var player = new Player(202, 320, 20);
+    var randomNum = Math.random() * 100;
+    if (randomNum <= 33) {
+        enemy = new Enemy(-100, 62, ((Math.random() + 0.5) * 300), 101, 83);
+    } else if (randomNum <= 66 && randomNum > 33) {
+        enemy = new Enemy(-100, 145, ((Math.random() + 0.5) * 300), 101, 83);
+    } else if (randomNum > 66) {
+        enemy = new Enemy(-100, 228, ((Math.random() + 0.5) * 300), 101, 83);
+    }
+    allEnemies.push(enemy);
+    return allEnemies;
+}, 800);
 
+// The player function requires (x, y, speed) parameters
+var player = new Player(202, 320, 20, 101, 83);
 
-
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
@@ -103,3 +104,12 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+function checkCollisions() {
+    if (player.x < enemy.x + enemy.width &&
+        player.x + player.width > enemy.x &&
+        player.y < enemy.y + enemy.height &&
+        player.y + player.height > enemy.y) {
+        window.location.reload(true);
+    } 
+}
