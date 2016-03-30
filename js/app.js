@@ -17,14 +17,8 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-
+    return this.x += (this.speed * dt);
 };
-
-Enemy.prototype.move = function(x, speed) {
-    this.x = x;
-    this.speed = speed;
-    this.x += this.speed;
-}
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -48,10 +42,6 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.player), this.x, this.y);
 };
 
-Player.prototype.move = function() {
-
-};
-
 Player.prototype.handleInput = function(e) {
     if (e == 37) {
         player.x -= 83;
@@ -62,7 +52,7 @@ Player.prototype.handleInput = function(e) {
     } else if (e == 40) {
         player.y -= 101;
     }
-    player.move()
+    player.update();
 };
 
 
@@ -71,10 +61,13 @@ Player.prototype.handleInput = function(e) {
 // Place the player object in a variable called player
 // ENEMY Y COORDINATES = ROW 1: 62, ROW 2: 145, ROW 3: 228
 var allEnemies = [];
-var enemy1 = new Enemy(100, 62, Math.random());
-var enemy2 = new Enemy(100, 145, Math.random());
-var enemy3 = new Enemy(100, 228, Math.random());
-allEnemies.push(enemy1, enemy2, enemy3);
+
+var enemy1 = new Enemy(-100, 62, (Math.random() *  400));
+allEnemies.push(enemy1);
+var enemy2 = new Enemy(-100, 145, (Math.random() * 400));
+allEnemies.push(enemy2);
+var enemy3 = new Enemy(-100, 228, (Math.random() * 400));
+allEnemies.push(enemy3);
 var player = new Player(202, 320);
 
 
