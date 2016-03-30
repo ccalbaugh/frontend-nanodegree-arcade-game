@@ -36,7 +36,7 @@ var Player = function(x, y) {
 
 Player.prototype.update = function(dt) {
 
-    console.log(dt, player.x, player.y);
+    console.log(player.x, player.y);
 };
 
 Player.prototype.render = function() {
@@ -61,22 +61,21 @@ Player.prototype.handleInput = function(e) {
 // ENEMY Y COORDINATES = ROW 1: 62, ROW 2: 145, ROW 3: 228
 var allEnemies = [];
 
-window.setInterval((function() {
+window.setInterval(function() {
         for (var i = 0; i < 3; i++) {
             var enemy = new Enemy();
             var randomNum = Math.random() * 100;
             if (randomNum <= 33) {
-                enemy[i] = new Enemy(-100, 62, (Math.random() *  400));
+                enemy[i] = new Enemy(-100, 62, ((Math.random() + 0.5) *  300));
             } else if (randomNum <= 66 && randomNum > 33) {
-                enemy[i] = new Enemy(-100, 145, (Math.random() *  400));
+                enemy[i] = new Enemy(-100, 145, ((Math.random() + 0.5) *  300));
             } else if (randomNum > 66) {
-                enemy[i] = new Enemy(-100, 228, (Math.random() *  400));
+                enemy[i] = new Enemy(-100, 228, ((Math.random() + 0.5) *  300));
             }
             allEnemies.push(enemy[i]);
         }
-        console.log(allEnemies)
         return allEnemies;
-    })(), 2000);
+    }, 2500);
 var player = new Player(202, 320);
 
 
