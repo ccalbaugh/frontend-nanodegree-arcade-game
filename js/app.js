@@ -37,7 +37,6 @@ var Player = function(x, y, speed, width, height) {
 };
 
 Player.prototype.update = function(dt) {
-    console.log(this.x, this.y);
     player.speed *= dt;
 
  // Dealing with the bounds of the board
@@ -81,18 +80,18 @@ var enemy = new Enemy();
 window.setInterval(function() {
     var randomNum = Math.random() * 100;
     if (randomNum <= 33) {
-        enemy = new Enemy(-100, 62, ((Math.random() + 0.5) * 300), 101, 83);
+        enemy = new Enemy(-100, 62, ((Math.random() + 0.5) * 300), 85, 60);
     } else if (randomNum <= 66 && randomNum > 33) {
-        enemy = new Enemy(-100, 145, ((Math.random() + 0.5) * 300), 101, 83);
+        enemy = new Enemy(-100, 145, ((Math.random() + 0.5) * 300), 85, 60);
     } else if (randomNum > 66) {
-        enemy = new Enemy(-100, 228, ((Math.random() + 0.5) * 300), 101, 83);
+        enemy = new Enemy(-100, 228, ((Math.random() + 0.5) * 300), 85, 60);
     }
     allEnemies.push(enemy);
     return allEnemies;
 }, 800);
 
 // The player function requires (x, y, speed) parameters
-var player = new Player(202, 320, 20, 101, 83);
+var player = new Player(202, 320, 20, 66, 73);
 
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
@@ -104,12 +103,16 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+document.addEventListener('click', function(e) {
+    console.log(e.clientX, e.clientY);
+}, false);
 
 function checkCollisions() {
     if (player.x < enemy.x + enemy.width &&
         player.x + player.width > enemy.x &&
         player.y < enemy.y + enemy.height &&
         player.y + player.height > enemy.y) {
+
         window.location.reload(true);
     } 
 }
