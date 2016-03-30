@@ -74,6 +74,19 @@ Player.prototype.handleInput = function(e) {
     player.update();
 };
 
+Player.prototype.checkCollisions = function() {
+    for (var i = 0; i < allEnemies.length; i++) {
+        if (player.x < allEnemies[i].x + allEnemies[i].width &&
+        player.width + player.x > allEnemies[i].x) {
+            if (player.y < allEnemies[i].y + allEnemies[i].height &&
+                player.height + player.y > allEnemies[i].y) {
+
+                window.location.reload(true);
+            }
+        }
+    }     
+};
+
 // ENEMY Y COORDINATES = ROW 1: 62, ROW 2: 145, ROW 3: 228
 var allEnemies = [];
 var enemy = new Enemy();
@@ -90,7 +103,7 @@ window.setInterval(function() {
     return allEnemies;
 }, 800);
 
-// The player function requires (x, y, speed) parameters
+// The player function requires (x, y, speed, width, height) parameters
 var player = new Player(202, 320, 20, 66, 73);
 
 document.addEventListener('keyup', function(e) {
@@ -107,12 +120,5 @@ document.addEventListener('click', function(e) {
     console.log(e.clientX, e.clientY);
 }, false);
 
-function checkCollisions() {
-    if (player.x < enemy.x + enemy.width &&
-        player.x + player.width > enemy.x &&
-        player.y < enemy.y + enemy.height &&
-        player.y + player.height > enemy.y) {
 
-        window.location.reload(true);
-    } 
-}
+
