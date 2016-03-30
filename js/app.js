@@ -1,11 +1,14 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
 };
 
 // Update the enemy's position, required method for game
@@ -14,8 +17,14 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    
+
 };
+
+Enemy.prototype.move = function(x, speed) {
+    this.x = x;
+    this.speed = speed;
+    this.x += this.speed;
+}
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -25,39 +34,48 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function() {
+var Player = function(x, y) {
+    this.x = x;
+    this.y = y;
     this.player = 'images/char-boy.png';
 };
 
 Player.prototype.update = function(dt) {
-    
+
 };
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.player), this.x, this.y);
 };
 
-Player.prototype.handleInput = function(x, y) {
-    x = player.x;
-    y = player.y;
-    if (allowedKeys[e.keyCode] === 37) {
-        return player.x -= 1;
-    } else if (allowedKeys[e.keyCode] === 38) {
-        return player.y += 1;
-    } else if (allowedKeys[e.keyCode] === 39) {
-        return player.x += 1;
-    } else if (allowedKeys[e.keyCode] === 40)
-        return player.y -= 1;
+Player.prototype.move = function() {
+
+};
+
+Player.prototype.handleInput = function(e) {
+    if (e == 37) {
+        player.x -= 83;
+    } else if (e == 38) {
+        player.y += 101;
+    } else if (e == 39) {
+        player.x += 83;
+    } else if (e == 40) {
+        player.y -= 101;
     }
+    player.move()
 };
 
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+// ENEMY Y COORDINATES = ROW 1: 62, ROW 2: 145, ROW 3: 228
 var allEnemies = [];
-allEnemies.push(new Enemy());
-var player = new Player();
+var enemy1 = new Enemy(100, 62, Math.random());
+var enemy2 = new Enemy(100, 145, Math.random());
+var enemy3 = new Enemy(100, 228, Math.random());
+allEnemies.push(enemy1, enemy2, enemy3);
+var player = new Player(202, 320);
 
 
 // This listens for key presses and sends the keys to your
