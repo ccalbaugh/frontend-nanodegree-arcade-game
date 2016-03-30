@@ -55,20 +55,27 @@ Player.prototype.handleInput = function(e) {
     player.update();
 };
 
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
 // ENEMY Y COORDINATES = ROW 1: 62, ROW 2: 145, ROW 3: 228
 var allEnemies = [];
 
-var enemy1 = new Enemy(-100, 62, (Math.random() *  400));
-allEnemies.push(enemy1);
-var enemy2 = new Enemy(-100, 145, (Math.random() * 400));
-allEnemies.push(enemy2);
-var enemy3 = new Enemy(-100, 228, (Math.random() * 400));
-allEnemies.push(enemy3);
+window.setTimeout((function() {
+        for (var i = 0; i < 3; i++) {
+            var enemy = new Enemy();
+            var randomNum = Math.random() * 100;
+            if (randomNum <= 33) {
+                enemy[i] = new Enemy(-100, 62, (Math.random() *  400));
+            } else if (randomNum <= 66 && randomNum > 33) {
+                enemy[i] = new Enemy(-100, 145, (Math.random() *  400));
+            } else if (randomNum > 66) {
+                enemy[i] = new Enemy(-100, 228, (Math.random() *  400));
+            }
+            allEnemies.push(enemy[i]);
+        }
+        console.log(allEnemies)
+        return allEnemies;
+    })(), 2000);
 var player = new Player(202, 320);
+
 
 
 // This listens for key presses and sends the keys to your
