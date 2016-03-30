@@ -28,15 +28,26 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(x, y) {
+var Player = function(x, y, speed) {
     this.x = x;
     this.y = y;
     this.player = 'images/char-boy.png';
 };
 
 Player.prototype.update = function(dt) {
+    player.speed *= dt;
+    if (player.x < 0) {
+        player.x = 0;
+    } else if (player.x > 404) {
+        player.x = 404;
+    }
 
-    console.log(player.x, player.y);
+    if (player.y > 403) {
+        player.y = 403;
+    } else if (player.y < 0) {
+        player.y = -12;
+    //  AND YOU WIN THE GAME!!
+    }
 };
 
 Player.prototype.render = function() {
@@ -76,7 +87,7 @@ window.setInterval(function() {
         }
         return allEnemies;
     }, 2500);
-var player = new Player(202, 320);
+var player = new Player(202, 320, 20);
 
 
 
