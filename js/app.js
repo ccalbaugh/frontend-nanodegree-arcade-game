@@ -36,6 +36,7 @@ var Player = function(x, y) {
 
 Player.prototype.update = function(dt) {
 
+    console.log(dt, player.x, player.y);
 };
 
 Player.prototype.render = function() {
@@ -43,14 +44,16 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(e) {
-    if (e == 37) {
-        player.x -= 83;
-    } else if (e == 38) {
-        player.y += 101;
-    } else if (e == 39) {
-        player.x += 83;
-    } else if (e == 40) {
-        player.y -= 101;
+    if (e == 'left') {
+        return this.x -= 101;
+    } else if (e == 'up') {
+        return this.y -= 83;
+    } else if (e == 'right') {
+        return this.x += 101;
+    } else if (e == 'down') {
+        return this.y += 83;
+    } else if (this.x < -12 || this.y < 0) {
+        return;
     }
     player.update();
 };
@@ -58,7 +61,7 @@ Player.prototype.handleInput = function(e) {
 // ENEMY Y COORDINATES = ROW 1: 62, ROW 2: 145, ROW 3: 228
 var allEnemies = [];
 
-window.setTimeout((function() {
+window.setInterval((function() {
         for (var i = 0; i < 3; i++) {
             var enemy = new Enemy();
             var randomNum = Math.random() * 100;
