@@ -37,7 +37,7 @@ var Player = function(x, y, speed, width, height) {
 };
 
 Player.prototype.update = function(dt) {
-    player.speed *= dt;
+    player.speed *= dt; // This speed parameter could be changed depending on the level
 
  // Dealing with the bounds of the board
     if (player.x < 0) {
