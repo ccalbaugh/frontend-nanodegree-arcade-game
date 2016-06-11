@@ -37,19 +37,19 @@ var Player = function(x, y, speed, width, height) {
 };
 
 Player.prototype.update = function(dt) {
-    player.speed *= dt; // This speed parameter could be changed depending on the level
+    this.speed *= dt; // This speed parameter could be changed depending on the level
 
  // Dealing with the bounds of the board
-    if (player.x < 0) {
-        player.x = 0;
-    } else if (player.x > 404) {
-        player.x = 404;
+    if (this.x < 0) {
+        this.x = 0;
+    } else if (this.x > 404) {
+        this.x = 404;
     }
 
-    if (player.y > 403) {
-        player.y = 403;
-    } else if (player.y < 0) { //            TODO: MAKE THE PLAYER WIN
-        player.y = -12;
+    if (this.y > 403) {
+        this.y = 403;
+    } else if (this.y < 0) { //            TODO: MAKE THE this WIN
+        this.y = -12;
         window.location.reload(true);
     }
 };
@@ -71,20 +71,21 @@ Player.prototype.handleInput = function(e) {
         return;
     }
 
-    player.update();
+    this.update();
 };
 
 Player.prototype.checkCollisions = function() {
-    for (var i = 0; i < allEnemies.length; i++) {
-        if (player.x < allEnemies[i].x + allEnemies[i].width &&
-        player.width + player.x > allEnemies[i].x) {
-            if (player.y < allEnemies[i].y + allEnemies[i].height &&
-                player.height + player.y > allEnemies[i].y) {
-
-                window.location.reload(true);
+    for (var i = 0, len = allEnemies.length; i < len; i++) {
+        if (this.x < allEnemies[i].x + allEnemies[i].width &&
+        this.width + this.x > allEnemies[i].x) {
+            if (this.y < allEnemies[i].y + allEnemies[i].height &&
+                this.height + this.y > allEnemies[i].y) {
+                this.x = 202;
+                this.y = 320;
+                return this.x && this.y;
             }
         }
-    }     
+    }
 };
 
 // ENEMY Y COORDINATES = ROW 1: 62, ROW 2: 145, ROW 3: 228
