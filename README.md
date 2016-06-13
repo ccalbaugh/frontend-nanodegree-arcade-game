@@ -1,6 +1,15 @@
-frontend-nanodegree-arcade-game
-===============================
+# Frontend-Nanodegree-arcade-game
 
-Students should use this [rubric](https://www.udacity.com/course/viewer/#!/c-nd001/l-2696458597/m-2687128535) for self-checking their submission.
+This game is based on Frogger of old but the frog is human and the cars are beetles
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+# Rules
+
+Try to get to the water, don't get hit, and mostly importantly; have fun!
+
+# How to Start
+
+Simply download the .zip or clone the repository and open index.html or a local server on your favorite browser
+
+#Attribution
+
+The engine and resource files for this game were created @Udacity and the app file was created by ccalbaugh
