@@ -4,11 +4,16 @@ This game is based on Frogger of old but the frog is human and the cars are beet
 
 # Rules
 
-Try to get to the water, don't get hit, and mostly importantly; have fun!
+- Use the arrows keys to move
+- try to reach the water
+- don't get hit
+- And mostly importantly; have fun!
 
 # How to Start
 
-Simply download the .zip or clone the repository and open index.html or a local server on your favorite browser
+- Either clone this repository or download the .zip file onto your own computer
+- Open the index.html file on your favorite web browser
+- Start Playing
 
 #Attribution
 

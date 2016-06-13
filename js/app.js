@@ -1,3 +1,5 @@
+var counter = 0; // This is so the score can be displayed
+
 // THE ENEMY CLASS
 var Enemy = function(x, y, speed, width, height) {
     // Variables applied to each of our instances go here,
@@ -22,7 +24,7 @@ Enemy.prototype = {
         // You should multiply any movement by the dt parameter
         // which will ensure the game runs at the same speed for
         // all computers.
-        if (this.x > 950) {
+        if (this.x > 950) { // this if statement will remove the enemies from allEnemies if they move off screen
             allEnemies.splice(this, 1);
         }
 
@@ -44,7 +46,7 @@ var Player = function(x, y, speed, width, height) {
     this.speed = speed;
     this.width = width;
     this.height = height;
-    this.player = 'images/char-boy.png';
+    playerImg = 'images/char-boy.png';
 
 }; // End of PLayer Class
 
@@ -65,12 +67,14 @@ Player.prototype = {
             this.y = 403;
         } else if (this.y < 0) { //            TODO: MAKE THE this WIN the game
             this.y = -12;
-            window.location.reload(true);
+            counter += 1; // This updates the score
+            document.getElementById("counter").innerHTML = counter;
+            this.reset();
         }
     },
 
     render: function() {
-        ctx.drawImage(Resources.get(this.player), this.x, this.y);
+        ctx.drawImage(Resources.get(playerImg), this.x, this.y);
     },
 
     handleInput: function(e) {
@@ -95,12 +99,17 @@ Player.prototype = {
             this.width + this.x > allEnemies[i].x) {
                 if (this.y < allEnemies[i].y + allEnemies[i].height &&
                     this.height + this.y > allEnemies[i].y) {
-                    this.x = 202;
-                    this.y = 320;
-                    this.update();
+
+                        this.reset();
                 }
             }
         }
+    },
+
+    reset: function() {
+        this.x = 202;
+        this.y = 320;
+        return this.x && this.y;
     }
 }; // End of PLayer prototype
 

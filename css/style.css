@@ -1,3 +1,7 @@
 body {
     text-align: center;
 }
+
+.game-stats {
+	margin: 20px;
+}
