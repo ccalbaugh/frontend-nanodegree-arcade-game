@@ -11,10 +11,14 @@ var Enemy = function(x, y, speed, width, height) {
     this.speed = speed;
     this.width = width;
     this.height = height;
+};
 
+Enemy.prototype = {
+
+    constructor: Enemy,
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
-    Enemy.prototype.update = function(dt) {
+    update: function(dt) {
         // You should multiply any movement by the dt parameter
         // which will ensure the game runs at the same speed for
         // all computers.
@@ -23,13 +27,13 @@ var Enemy = function(x, y, speed, width, height) {
         }
 
         return this ? this.x += (this.speed * dt) : undefined;
-    };
+    },
 
     // Draw the enemy on the screen, required method for game
-    Enemy.prototype.render = function() {
+    render: function() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    };
-};
+    }
+}; // End of Enemy prototype
 
 
 
@@ -37,11 +41,17 @@ var Enemy = function(x, y, speed, width, height) {
 var Player = function(x, y, speed, width, height) {
     this.x = x;
     this.y = y;
-    this.player = 'images/char-boy.png';
+    this.speed = speed;
     this.width = width;
     this.height = height;
+    this.player = 'images/char-boy.png';
 
-    Player.prototype.update = function(dt) {
+}; // End of PLayer Class
+
+Player.prototype = {
+
+    constructor: Player,
+    update: function(dt) {
         this.speed *= dt; // This speed parameter could be changed depending on the level
 
      // Dealing with the bounds of the board
@@ -53,17 +63,17 @@ var Player = function(x, y, speed, width, height) {
 
         if (this.y > 403) {
             this.y = 403;
-        } else if (this.y < 0) { //            TODO: MAKE THE this WIN
+        } else if (this.y < 0) { //            TODO: MAKE THE this WIN the game
             this.y = -12;
             window.location.reload(true);
         }
-    };
+    },
 
-    Player.prototype.render = function() {
+    render: function() {
         ctx.drawImage(Resources.get(this.player), this.x, this.y);
-    };
+    },
 
-    Player.prototype.handleInput = function(e) {
+    handleInput: function(e) {
         if (e == 'left') {
             return this.x -= 101;
         } else if (e == 'up') {
@@ -77,9 +87,9 @@ var Player = function(x, y, speed, width, height) {
         }
 
         this.update();
-    };
+    },
 
-    Player.prototype.checkCollisions = function() {
+    checkCollisions: function() {
         for (var i = 0, len = allEnemies.length; i < len; i++) {
             if (this.x < allEnemies[i].x + allEnemies[i].width &&
             this.width + this.x > allEnemies[i].x) {
@@ -91,8 +101,9 @@ var Player = function(x, y, speed, width, height) {
                 }
             }
         }
-    };
-}; // End of PLayer Class
+    }
+}; // End of PLayer prototype
+
 
 
 
