@@ -1,5 +1,7 @@
 # Frontend-Nanodegree-arcade-game
 
+![picture](https://cloud.githubusercontent.com/assets/15692477/17913961/d774aebe-6963-11e6-9b77-9d2671d4efe5.png)
+
 This game is based on Frogger of old but the frog is human and the cars are beetles
 
 # Rules
